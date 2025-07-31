@@ -1,0 +1,29 @@
+<% content_for :title do %>
+  Foodlog &ndash; <%= l(DateTime.now, format: :nice_date) %>
+<% end %>
+
+<div class="columns mt-6 is-centered">
+  <% @entries.each do |entry| %>
+    <div class="column is-one-quarter">
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title"><%= entry.meal_type %></p>
+        </header>
+        <div class="card-content">
+          <div class="content">
+            <p><span class="has-text-weight-bold"><%= entry.calories %></span> calories</p>
+            <p><span class="has-text-weight-bold"><%= entry.proteins %></span> grams of protein</p>
+            <p><span class="has-text-weight-bold"><%= entry.carbohydrates %></span> grams of carbohydrates</p>
+            <p><span class="has-text-weight-bold"><%= entry.fats %> grams of fat</span></p>
+            <p class="italic">Logged <%= time_ago_in_words(entry.created_at) %> ago
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <%= link_to "Show", entry, class: "card-footer-item" %>
+        <%= link_to "Edit", edit_entry_path(entry), class: "card-footer-item" %>
+        <%= link_to "Delete", entry, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "card-footer-item" %>
+      </div>
+    </div>
+  <% end %>
+</div>
